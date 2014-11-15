@@ -40,7 +40,7 @@ namespace SampleHistoryTesting
 
 		private readonly List<HistoryEmulationConnector> _connectors = new List<HistoryEmulationConnector>();
 		private readonly BufferedChart _bufferedChart;
-		
+
 		private DateTime _startEmulationTime;
 		private ChartCandleElement _candlesElem;
 		private ChartTradeElement _tradesElem;
@@ -233,7 +233,18 @@ namespace SampleHistoryTesting
 					CreateDepthFromOrdersLog = emulationInfo.UseOrderLog,
 					CreateTradesFromOrdersLog = emulationInfo.UseOrderLog,
 				};
+				connector.WhenNewMyTrades().Do(trades =>
+				{
+					foreach (var trade in trades)
+					{
+						var dict = new Dictionary<IChartElement, object>
+						{
+							{_tradesElem, trade}
+						};
 
+						_bufferedChart.Draw(trade.Trade.Time, dict);
+					}
+				}).Apply();
 				connector.MarketDataAdapter.SessionHolder.MarketTimeChangedInterval = timeFrame;
 
 				((ILogSource)connector).LogLevel = DebugLogCheckBox.IsChecked == true ? LogLevels.Debug : LogLevels.Info;
@@ -293,7 +304,7 @@ namespace SampleHistoryTesting
 
 				_shortElem = new ChartIndicatorElement
 				{
-					Indicator = new SimpleMovingAverage { Length = 10 },
+					Indicator = new AverageTrueRange { Length = 10 },
 					Color = Colors.Coral,
 					ShowAxisMarker = false
 				};
@@ -301,13 +312,13 @@ namespace SampleHistoryTesting
 
 				_longElem = new ChartIndicatorElement
 				{
-					Indicator = new SimpleMovingAverage { Length = 80 },
+					Indicator = new AverageTrueRange { Length = 200 },
 					ShowAxisMarker = false
 				};
 				_bufferedChart.AddElement(_area, _longElem);
 
 				// создаем торговую стратегию, скользящие средние на 80 5-минуток и 10 5-минуток
-				var strategy = new SmaStrategy(_bufferedChart, _candlesElem, _tradesElem, _shortElem, _longElem, series)
+				var strategy = new RiskStrategy(_bufferedChart, _candlesElem, _tradesElem, _shortElem, _longElem, series)
 				{
 					Volume = 1,
 					Portfolio = portfolio,
@@ -440,10 +451,10 @@ namespace SampleHistoryTesting
 		private void CheckBoxClick(object sender, RoutedEventArgs e)
 		{
 			var isEnabled = TicksCheckBox.IsChecked == true ||
-			                TicksAndDepthsCheckBox.IsChecked == true ||
-			                CandlesCheckBox.IsChecked == true ||
-			                CandlesAndDepthsCheckBox.IsChecked == true ||
-			                OrderLogCheckBox.IsChecked == true;
+							TicksAndDepthsCheckBox.IsChecked == true ||
+							CandlesCheckBox.IsChecked == true ||
+							CandlesAndDepthsCheckBox.IsChecked == true ||
+							OrderLogCheckBox.IsChecked == true;
 
 			StartBtn.IsEnabled = isEnabled;
 			TabControl.Visibility = isEnabled ? Visibility.Visible : Visibility.Collapsed;
