@@ -40,12 +40,14 @@ namespace SampleHistoryTesting
 
 		private readonly List<HistoryEmulationConnector> _connectors = new List<HistoryEmulationConnector>();
 		private readonly BufferedChart _bufferedChart;
-
+		
 		private DateTime _startEmulationTime;
 		private ChartCandleElement _candlesElem;
 		private ChartTradeElement _tradesElem;
 		private ChartIndicatorElement _shortElem;
+		private SimpleMovingAverage _shortMa;
 		private ChartIndicatorElement _longElem;
+		private SimpleMovingAverage _longMa;
 		private ChartArea _area;
 
 		public MainWindow()
@@ -54,7 +56,7 @@ namespace SampleHistoryTesting
 
 			_bufferedChart = new BufferedChart(Chart);
 
-			HistoryPath.Text = Path.GetFullPath(@"..\..\..\HistoryData\");
+			HistoryPath.Text = @"..\..\..\HistoryData\".ToFullPath();
 
 			From.Value = new DateTime(2012, 10, 1);
 			To.Value = new DateTime(2012, 10, 25);
@@ -191,7 +193,8 @@ namespace SampleHistoryTesting
 
 				var level1Info = new Level1ChangeMessage
 				{
-					SecurityId = security.ToSecurityId()
+					SecurityId = security.ToSecurityId(),
+					ServerTime = startTime,
 				}
 				.TryAdd(Level1Fields.PriceStep, 10m)
 				.TryAdd(Level1Fields.StepPrice, 6m)
@@ -233,18 +236,7 @@ namespace SampleHistoryTesting
 					CreateDepthFromOrdersLog = emulationInfo.UseOrderLog,
 					CreateTradesFromOrdersLog = emulationInfo.UseOrderLog,
 				};
-				connector.WhenNewMyTrades().Do(trades =>
-				{
-					foreach (var trade in trades)
-					{
-						var dict = new Dictionary<IChartElement, object>
-						{
-							{_tradesElem, trade}
-						};
 
-						_bufferedChart.Draw(trade.Trade.Time, dict);
-					}
-				}).Apply();
 				connector.MarketDataAdapter.SessionHolder.MarketTimeChangedInterval = timeFrame;
 
 				((ILogSource)connector).LogLevel = DebugLogCheckBox.IsChecked == true ? LogLevels.Debug : LogLevels.Info;
@@ -302,23 +294,25 @@ namespace SampleHistoryTesting
 				var candleManager = new CandleManager(connector);
 				var series = new CandleSeries(typeof(TimeFrameCandle), security, timeFrame);
 
+				_shortMa = new SimpleMovingAverage { Length = 10 };
 				_shortElem = new ChartIndicatorElement
 				{
-					Indicator = new AverageTrueRange { Length = 10 },
 					Color = Colors.Coral,
-					ShowAxisMarker = false
+					ShowAxisMarker = false,
+					FullTitle = _shortMa.ToString()
 				};
 				_bufferedChart.AddElement(_area, _shortElem);
 
+				_longMa = new SimpleMovingAverage { Length = 80 };
 				_longElem = new ChartIndicatorElement
 				{
-					Indicator = new AverageTrueRange { Length = 200 },
-					ShowAxisMarker = false
+					ShowAxisMarker = false,
+					FullTitle = _longMa.ToString()
 				};
 				_bufferedChart.AddElement(_area, _longElem);
 
 				// создаем торговую стратегию, скользящие средние на 80 5-минуток и 10 5-минуток
-				var strategy = new RiskStrategy(_bufferedChart, _candlesElem, _tradesElem, _shortElem, _longElem, series)
+				var strategy = new SmaStrategy(_bufferedChart, _candlesElem, _tradesElem, _shortMa, _shortElem, _longMa, _longElem, series)
 				{
 					Volume = 1,
 					Portfolio = portfolio,
@@ -344,8 +338,8 @@ namespace SampleHistoryTesting
 				statistic.Parameters.AddRange(strategy.StatisticManager.Parameters);
 
 				var pnlCurve = Curve.CreateCurve("P&L " + emulationInfo.StrategyName, emulationInfo.CurveColor, EquityCurveChartStyles.Area);
-				var unrealizedPnLCurve = Curve.CreateCurve(LocalizedStrings.Str3022 + emulationInfo.StrategyName, Colors.Black);
-				var commissionCurve = Curve.CreateCurve(LocalizedStrings.Str3023 + emulationInfo.StrategyName, Colors.Red, EquityCurveChartStyles.DashedLine);
+				var unrealizedPnLCurve = Curve.CreateCurve(LocalizedStrings.PnLUnreal + emulationInfo.StrategyName, Colors.Black);
+				var commissionCurve = Curve.CreateCurve(LocalizedStrings.Str159 + " " + emulationInfo.StrategyName, Colors.Red, EquityCurveChartStyles.DashedLine);
 				var posItems = PositionCurve.CreateCurve(emulationInfo.StrategyName, emulationInfo.CurveColor);
 				strategy.PnLChanged += () =>
 				{
@@ -407,7 +401,7 @@ namespace SampleHistoryTesting
 								MessageBox.Show(LocalizedStrings.Str3024 + (DateTime.Now - _startEmulationTime));
 							}
 							else
-								MessageBox.Show(LocalizedStrings.Str3025);
+								MessageBox.Show(LocalizedStrings.cancelled);
 						});
 					}
 					else if (connector.State == EmulationStates.Started)
@@ -451,10 +445,10 @@ namespace SampleHistoryTesting
 		private void CheckBoxClick(object sender, RoutedEventArgs e)
 		{
 			var isEnabled = TicksCheckBox.IsChecked == true ||
-							TicksAndDepthsCheckBox.IsChecked == true ||
-							CandlesCheckBox.IsChecked == true ||
-							CandlesAndDepthsCheckBox.IsChecked == true ||
-							OrderLogCheckBox.IsChecked == true;
+			                TicksAndDepthsCheckBox.IsChecked == true ||
+			                CandlesCheckBox.IsChecked == true ||
+			                CandlesAndDepthsCheckBox.IsChecked == true ||
+			                OrderLogCheckBox.IsChecked == true;
 
 			StartBtn.IsEnabled = isEnabled;
 			TabControl.Visibility = isEnabled ? Visibility.Visible : Visibility.Collapsed;
@@ -480,7 +474,7 @@ namespace SampleHistoryTesting
 			_candlesElem = new ChartCandleElement { ShowAxisMarker = false };
 			_bufferedChart.AddElement(_area, _candlesElem);
 
-			_tradesElem = new ChartTradeElement();
+			_tradesElem = new ChartTradeElement { FullTitle = "Сделки" };
 			_bufferedChart.AddElement(_area, _tradesElem);
 		}
 
@@ -490,7 +484,8 @@ namespace SampleHistoryTesting
 			{
 				StopBtn.IsEnabled = started;
 				StartBtn.IsEnabled = !started;
-				TicksCheckBox.IsEnabled = TicksAndDepthsCheckBox.IsEnabled = CandlesCheckBox.IsEnabled = CandlesAndDepthsCheckBox.IsEnabled = !started;
+				TicksCheckBox.IsEnabled = TicksAndDepthsCheckBox.IsEnabled = CandlesCheckBox.IsEnabled
+					= CandlesAndDepthsCheckBox.IsEnabled = OrderLogCheckBox.IsEnabled = !started;
 
 				_bufferedChart.IsAutoRange = started;
 			});

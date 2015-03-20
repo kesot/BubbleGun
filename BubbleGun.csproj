@@ -62,6 +62,62 @@
     </ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Ecng.Collections, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\StockSharp (GitHub)\stocksharp\References\Ecng\Ecng.Collections.dll</HintPath>
+    </Reference>
+    <Reference Include="Ecng.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\StockSharp (GitHub)\stocksharp\References\Ecng\Ecng.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Ecng.ComponentModel, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\StockSharp (GitHub)\stocksharp\References\Ecng\Ecng.ComponentModel.dll</HintPath>
+    </Reference>
+    <Reference Include="Ecng.Localization, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\StockSharp (GitHub)\stocksharp\References\Ecng\Ecng.Localization.dll</HintPath>
+    </Reference>
+    <Reference Include="Ecng.Serialization, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\StockSharp (GitHub)\stocksharp\References\Ecng\Ecng.Serialization.dll</HintPath>
+    </Reference>
+    <Reference Include="Ecng.Xaml, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\StockSharp (GitHub)\stocksharp\References\Ecng\Ecng.Xaml.dll</HintPath>
+    </Reference>
+    <Reference Include="StockSharp.Algo, Version=4.2.35.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\StockSharp (GitHub)\stocksharp\Algo\bin\Debug\StockSharp.Algo.dll</HintPath>
+    </Reference>
+    <Reference Include="StockSharp.Algo.Strategies, Version=4.2.35.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\StockSharp (GitHub)\stocksharp\Algo.Strategies\StockSharp.Algo.Strategies.dll</HintPath>
+    </Reference>
+    <Reference Include="StockSharp.BusinessEntities, Version=4.2.35.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\StockSharp (GitHub)\stocksharp\BusinessEntities\bin\Debug\StockSharp.BusinessEntities.dll</HintPath>
+    </Reference>
+    <Reference Include="StockSharp.Localization, Version=4.2.35.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\StockSharp (GitHub)\stocksharp\Localization\bin\Debug\StockSharp.Localization.dll</HintPath>
+    </Reference>
+    <Reference Include="StockSharp.Logging, Version=4.2.35.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\StockSharp (GitHub)\stocksharp\Logging\bin\Debug\StockSharp.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="StockSharp.Messages, Version=4.2.35.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\StockSharp (GitHub)\stocksharp\Messages\bin\Debug\StockSharp.Messages.dll</HintPath>
+    </Reference>
+    <Reference Include="StockSharp.Xaml, Version=4.2.35.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\StockSharp (GitHub)\stocksharp\Xaml\bin\Debug\StockSharp.Xaml.dll</HintPath>
+    </Reference>
+    <Reference Include="StockSharp.Xaml.Charting, Version=4.2.35.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\StockSharp (GitHub)\stocksharp\Xaml.Charting\StockSharp.Xaml.Charting.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Windows.Forms" />
@@ -69,29 +125,9 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
-    <Reference Include="Ecng.Localization">
-      <HintPath>..\..\..\References\Ecng.Localization.dll</HintPath>
-    </Reference>
-    <Reference Include="Ookii.Dialogs.Wpf, Version=1.0.0.0, Culture=neutral, PublicKeyToken=0c15020868fd6249, processorArchitecture=MSIL">
-      <HintPath>..\..\..\References\Ookii.Dialogs.Wpf, Version=1.0.0.0, Culture=neutral, PublicKeyToken=0c15020868fd6249, processorArchitecture=MSIL.dll</HintPath>
-    </Reference>
-    <Reference Include="Ecng.Collections">
-      <HintPath>..\..\..\References\Ecng.Collections.dll</HintPath>
-    </Reference>
-    <Reference Include="Ecng.Common">
-      <HintPath>..\..\..\References\Ecng.Common.dll</HintPath>
-    </Reference>
-    <Reference Include="Ecng.ComponentModel">
-      <HintPath>..\..\..\References\Ecng.ComponentModel.dll</HintPath>
-    </Reference>
-    <Reference Include="Ecng.Serialization">
-      <HintPath>..\..\..\References\Ecng.Serialization.dll</HintPath>
-    </Reference>
-    <Reference Include="Ecng.Xaml">
-      <HintPath>..\..\..\References\Ecng.Xaml.dll</HintPath>
-    </Reference>
-    <Reference Include="Xceed.Wpf.Toolkit">
-      <HintPath>..\..\..\References\Xceed.Wpf.Toolkit.dll</HintPath>
+    <Reference Include="Xceed.Wpf.Toolkit, Version=2.2.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\StockSharp (GitHub)\stocksharp\References\Ecng\Xceed.Wpf.Toolkit.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -99,20 +135,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="RiskStrategy.cs" />
-    <Compile Include="SmaStrategy.cs" />
-    <Page Include="MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="SmaStrategy.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -140,30 +171,10 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="StockSharp.Algo.Strategies">
-      <HintPath>..\..\..\References\StockSharp.Algo.Strategies.dll</HintPath>
-    </Reference>
-    <Reference Include="StockSharp.Algo">
-      <HintPath>..\..\..\References\StockSharp.Algo.dll</HintPath>
-    </Reference>
-    <Reference Include="StockSharp.BusinessEntities">
-      <HintPath>..\..\..\References\StockSharp.BusinessEntities.dll</HintPath>
-    </Reference>
-    <Reference Include="StockSharp.Localization">
-      <HintPath>..\..\..\References\StockSharp.Localization.dll</HintPath>
-    </Reference>
-    <Reference Include="StockSharp.Logging">
-      <HintPath>..\..\..\References\StockSharp.Logging.dll</HintPath>
-    </Reference>
-    <Reference Include="StockSharp.Messages">
-      <HintPath>..\..\..\References\StockSharp.Messages.dll</HintPath>
-    </Reference>
-    <Reference Include="StockSharp.Xaml.Charting">
-      <HintPath>..\..\..\References\StockSharp.Xaml.Charting.dll</HintPath>
-    </Reference>
-    <Reference Include="StockSharp.Xaml">
-      <HintPath>..\..\..\References\StockSharp.Xaml.dll</HintPath>
-    </Reference>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

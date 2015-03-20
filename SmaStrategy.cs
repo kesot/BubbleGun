@@ -27,8 +27,9 @@ namespace SampleHistoryTesting
 		private readonly CandleSeries _series;
 		private bool _isShortLessThenLong;
 
-		public SmaStrategy(IChart chart, ChartCandleElement candlesElem,
-			ChartTradeElement tradesElem, ChartIndicatorElement shortElem, ChartIndicatorElement longElem,
+		public SmaStrategy(IChart chart, ChartCandleElement candlesElem, ChartTradeElement tradesElem, 
+			SimpleMovingAverage shortMa, ChartIndicatorElement shortElem,
+			SimpleMovingAverage longMa, ChartIndicatorElement longElem,
 			CandleSeries series)
 		{
 			_chart = chart;
@@ -39,8 +40,8 @@ namespace SampleHistoryTesting
 			
 			_series = series;
 
-			LongSma = (SimpleMovingAverage)longElem.Indicator;
-			ShortSma = (SimpleMovingAverage)shortElem.Indicator;
+			ShortSma = shortMa;
+			LongSma = longMa;
 		}
 
 		public SimpleMovingAverage LongSma { get; private set; }
@@ -120,8 +121,8 @@ namespace SampleHistoryTesting
 			var dict = new Dictionary<IChartElement, object>
 			{
 				{ _candlesElem, candle },
-				{ _shortElem, new ChartIndicatorValue(ShortSma, shortValue) },
-				{ _longElem, new ChartIndicatorValue(LongSma, longValue) },
+				{ _shortElem, shortValue },
+				{ _longElem, longValue },
 				{ _tradesElem, trade }
 			};
 

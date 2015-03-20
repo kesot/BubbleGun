@@ -98,14 +98,9 @@
             Показывать на экран ошибки, или только передавать их в <see cref="T:StockSharp.Logging.LogManager"/>. По-умолчанию ошибки показываются.
             </summary>
         </member>
-        <member name="P:StockSharp.Xaml.BaseApplication.ExtendedFeaturesX86">
+        <member name="P:StockSharp.Xaml.BaseApplication.ExtendedFeatures">
             <summary>
-            Расширенные функциональности для платформы x86, которые будут отображены в окне <see cref="T:StockSharp.Xaml.TargetPlatformWindow"/>.
-            </summary>
-        </member>
-        <member name="P:StockSharp.Xaml.BaseApplication.ExtendedFeaturesX64">
-            <summary>
-            Расширенные функциональности для платформы x64, которые будут отображены в окне <see cref="T:StockSharp.Xaml.TargetPlatformWindow"/>.
+            Расширенная функциональность, которая будет отображена в окне <see cref="T:StockSharp.Xaml.TargetPlatformWindow"/>.
             </summary>
         </member>
         <member name="P:StockSharp.Xaml.BaseApplication.ProxySettings">
@@ -375,7 +370,7 @@
             Вспомогательный класс.
             </summary>
         </member>
-        <member name="M:StockSharp.Xaml.Code.CodeExtensions.CompileCode(Ecng.Common.Languages,System.String,System.String,System.Collections.Generic.IEnumerable{StockSharp.Xaml.Code.CodeReference},System.String,System.String)">
+        <member name="M:StockSharp.Xaml.Code.CodeExtensions.CompileCode(Ecng.Common.CompilationLanguages,System.String,System.String,System.Collections.Generic.IEnumerable{StockSharp.Xaml.Code.CodeReference},System.String,System.String)">
             <summary>
             Скомпилировать код.
             </summary>
@@ -703,6 +698,34 @@
             Сохраняемые колонки.
             </summary>
         </member>
+        <member name="T:StockSharp.Xaml.PropertyGrid.DateTimeOffsetEditor">
+            <summary>
+            Редактор для <see cref="T:System.DateTimeOffset"/>.
+            </summary>
+            <summary>
+            DateTimeOffsetEditor
+            </summary>
+        </member>
+        <member name="M:StockSharp.Xaml.PropertyGrid.DateTimeOffsetEditor.#ctor">
+            <summary>
+            Создать <see cref="T:StockSharp.Xaml.PropertyGrid.DateTimeOffsetEditor"/>.
+            </summary>
+        </member>
+        <member name="F:StockSharp.Xaml.PropertyGrid.DateTimeOffsetEditor.OffsetProperty">
+            <summary>
+            <see cref="T:System.Windows.DependencyProperty"/> для <see cref="P:StockSharp.Xaml.PropertyGrid.DateTimeOffsetEditor.Offset"/>.
+            </summary>
+        </member>
+        <member name="M:StockSharp.Xaml.PropertyGrid.DateTimeOffsetEditor.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="P:StockSharp.Xaml.PropertyGrid.DateTimeOffsetEditor.Offset">
+            <summary>
+            Время с временной зоной.
+            </summary>
+        </member>
         <member name="T:StockSharp.Xaml.ProxySettings">
             <summary>
             Настройки прокси-сервера.
@@ -856,16 +879,6 @@
             Создать <see cref="T:StockSharp.Xaml.SecurityJumpsEditor"/>.
             </summary>
         </member>
-        <member name="M:StockSharp.Xaml.SecurityJumpsEditor.AddJump(StockSharp.BusinessEntities.Security)">
-            <summary>
-            Добавить переход.
-            </summary>
-        </member>
-        <member name="M:StockSharp.Xaml.SecurityJumpsEditor.RemoveJumps">
-            <summary>
-            Удалить выбранные переходы.
-            </summary>
-        </member>
         <member name="M:StockSharp.Xaml.SecurityJumpsEditor.Validate">
             <summary>
             Проверить правильность ввода данных.
@@ -885,6 +898,11 @@
         <member name="P:StockSharp.Xaml.SecurityJumpsEditor.SelectedJump">
             <summary>
             Выбранный переход.
+            </summary>
+        </member>
+        <member name="P:StockSharp.Xaml.SecurityJumpsEditor.SelectedJumps">
+            <summary>
+            Выбранные переходы.
             </summary>
         </member>
         <member name="E:StockSharp.Xaml.SecurityJumpsEditor.Changed">
@@ -1620,29 +1638,6 @@
         <member name="P:StockSharp.Xaml.OrderLogGrid.SelectedLogItems">
             <summary>
             Выбранные строчки.
-            </summary>
-        </member>
-        <member name="T:StockSharp.Xaml.LicensePanel">
-            <summary>
-            Графический компонент для представления информации о <see cref="T:StockSharp.Licensing.License"/>.
-            </summary>
-            <summary>
-            LicensePanel
-            </summary>
-        </member>
-        <member name="M:StockSharp.Xaml.LicensePanel.#ctor">
-            <summary>
-            Создать <see cref="T:StockSharp.Xaml.LicensePanel"/>.
-            </summary>
-        </member>
-        <member name="M:StockSharp.Xaml.LicensePanel.InitializeComponent">
-            <summary>
-            InitializeComponent
-            </summary>
-        </member>
-        <member name="P:StockSharp.Xaml.LicensePanel.Licenses">
-            <summary>
-            Лицензии.
             </summary>
         </member>
         <member name="T:StockSharp.Xaml.MarketDataGrid">
@@ -2599,6 +2594,16 @@
             Уровень логирования.
             </summary>
         </member>
+        <member name="P:StockSharp.Xaml.ConnectorInfo.PreferLanguage">
+            <summary>
+            Целевая аудитория.
+            </summary>
+        </member>
+        <member name="P:StockSharp.Xaml.ConnectorInfo.Platform">
+            <summary>
+            Платформа.
+            </summary>
+        </member>
         <member name="T:StockSharp.Xaml.SessionHoldersWindow">
             <summary>
             Окно создания новых подключений <see cref="T:StockSharp.Messages.IMessageSessionHolder"/>.
@@ -2981,6 +2986,13 @@
             </summary>
             <param name="criteria">Инструмент, поля которого будут использоваться в качестве фильтра.</param>
             <returns>Найденные инструменты.</returns>
+        </member>
+        <member name="M:StockSharp.Xaml.GuiConnector`1.GetNativeId(StockSharp.BusinessEntities.Security)">
+            <summary>
+            Получить внутренний идентификатор торговой системы.
+            </summary>
+            <param name="security">Инструмент.</param>
+            <returns>Внутренний идентификатор торговой системы.</returns>
         </member>
         <member name="M:StockSharp.Xaml.GuiConnector`1.DisposeManaged">
             <summary>
@@ -4030,11 +4042,6 @@
             Выбрано ли локальное хранилище.
             </summary>
         </member>
-        <member name="P:StockSharp.Xaml.StorageSettingsPanel.IsAlphabetic">
-            <summary>
-            Использовать ли алфавитный путь к данным.
-            </summary>
-        </member>
         <member name="P:StockSharp.Xaml.StorageSettingsPanel.Path">
             <summary>
             Путь к локальным данным.
@@ -4178,6 +4185,42 @@
             Событие изменения выбранных стратегий.
             </summary>
         </member>
+        <member name="T:StockSharp.Xaml.TargetPlatformFeature">
+            <summary>
+            Функциональность.
+            </summary>
+        </member>
+        <member name="M:StockSharp.Xaml.TargetPlatformFeature.#ctor(System.String,Ecng.Localization.Languages,Ecng.Interop.Platforms)">
+            <summary>
+            Создать <see cref="T:StockSharp.Xaml.TargetPlatformFeature"/>.
+            </summary>
+            <param name="localizationKey">Ключ для <see cref="T:StockSharp.Localization.LocalizedStrings"/>, по которому будет получено локализованное название.</param>
+            <param name="preferLanguage">Целевая аудитория.</param>
+            <param name="platform">Платформа.</param>
+        </member>
+        <member name="M:StockSharp.Xaml.TargetPlatformFeature.ToString">
+            <summary>
+            Returns a string that represents the current object.
+            </summary>
+            <returns>
+            A string that represents the current object.
+            </returns>
+        </member>
+        <member name="P:StockSharp.Xaml.TargetPlatformFeature.LocalizationKey">
+            <summary>
+            Ключ для <see cref="T:StockSharp.Localization.LocalizedStrings"/>, по которому будет получено локализованное название.
+            </summary>
+        </member>
+        <member name="P:StockSharp.Xaml.TargetPlatformFeature.PreferLanguage">
+            <summary>
+            Целевая аудитория.
+            </summary>
+        </member>
+        <member name="P:StockSharp.Xaml.TargetPlatformFeature.Platform">
+            <summary>
+            Платформа.
+            </summary>
+        </member>
         <member name="T:StockSharp.Xaml.TargetPlatformWindow">
             <summary>
             Компонент для выбора платформы для приложения.
@@ -4201,11 +4244,10 @@
             <see cref="T:System.Windows.DependencyProperty"/> для <see cref="P:StockSharp.Xaml.TargetPlatformWindow.AutoStart"/>.
             </summary>
         </member>
-        <member name="M:StockSharp.Xaml.TargetPlatformWindow.#ctor(System.Boolean)">
+        <member name="M:StockSharp.Xaml.TargetPlatformWindow.#ctor">
             <summary>
             Создать <see cref="T:StockSharp.Xaml.TargetPlatformWindow"/>.
             </summary>
-            <param name="settingsMode">Режим.</param>
         </member>
         <member name="M:StockSharp.Xaml.TargetPlatformWindow.InitializeComponent">
             <summary>
@@ -4229,7 +4271,7 @@
         </member>
         <member name="P:StockSharp.Xaml.TargetPlatformWindow.Features">
             <summary>
-            Доступный функционал для каждой платформы.
+            Доступная функциональность для всех платформ.
             </summary>
         </member>
         <member name="P:StockSharp.Xaml.TargetPlatformWindow.SelectedPlatform">
@@ -4237,7 +4279,7 @@
             Выбранная платформа.
             </summary>
         </member>
-        <member name="P:StockSharp.Xaml.TargetPlatformWindow.SelectedCulture">
+        <member name="P:StockSharp.Xaml.TargetPlatformWindow.SelectedLanguage">
             <summary>
             Выбранная культура.
             </summary>
@@ -4283,7 +4325,7 @@
         </member>
         <member name="T:StockSharp.Xaml.UnitEditor">
             <summary>
-            Контрол для редактирования объекта класса <see cref="T:StockSharp.BusinessEntities.Unit"/>.
+            Контрол для редактирования объекта класса <see cref="T:StockSharp.Messages.Unit"/>.
             </summary>
             <summary>
             UnitEditor
